@@ -12,17 +12,11 @@
 	<artifactId>DatPhongKhachSan</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>DatPhongKhachSan</name>
-	<description>Web with Spring Boot</description>
+	<description>project for Spring Boot</description>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -37,21 +31,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	<!-- SQLServer JDBC driver (JTDS) -->
-    <!-- http://mvnrepository.com/artifact/net.sourceforge.jtds/jtds -->
-	    <dependency>
-	        <groupId>com.microsoft.sqlserver</groupId>
-	        <artifactId>mssql-jdbc</artifactId>
-	        <scope>runtime</scope>
-	    </dependency>
-	    
-	    <dependency>
-	        <groupId>net.sourceforge.jtds</groupId>
-	        <artifactId>jtds</artifactId>
-	        <scope>runtime</scope>
-	    </dependency>
 	</dependencies>
-	
 
 	<build>
 		<plugins>

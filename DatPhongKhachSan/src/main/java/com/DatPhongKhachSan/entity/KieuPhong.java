@@ -1,6 +1,6 @@
-package entity;
-import jakarta.persistence.Entity;
-@Entity
+package com.DatPhongKhachSan.entity;
+//import jakarta.persistence.Entity;
+
 public class KieuPhong{
 
     private String maKP;

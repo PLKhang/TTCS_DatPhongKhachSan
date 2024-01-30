@@ -1,6 +1,5 @@
-package entity;
-import jakarta.persistence.Entity;
-@Entity
+package com.DatPhongKhachSan.entity;
+//import jakarta.persistence.Entity;
 public class LoaiPhong{
 
     private String maLP;

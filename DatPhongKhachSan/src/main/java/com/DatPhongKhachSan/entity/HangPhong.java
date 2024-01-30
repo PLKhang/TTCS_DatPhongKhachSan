@@ -1,8 +1,7 @@
-package entity;
-import jakarta.persistence.Entity;
+package com.DatPhongKhachSan.entity;
+//import jakarta.persistence.Entity;
 import java.math.BigDecimal;
 import java.lang.Short;
-@Entity
 public class HangPhong{
 
     private String maHP;

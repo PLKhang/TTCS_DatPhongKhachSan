@@ -65,7 +65,6 @@ create table TAIKHOAN(
 	USERNAME char(30),
 	USERPW varchar(50) not null,
 	CCCD char(20) not null unique,
-	SODUTK money not null check (SODUTK >= 0),
 	primary key (USERNAME),
 	foreign key(CCCD) references KHACHHANG(CCCD) on update cascade
 )

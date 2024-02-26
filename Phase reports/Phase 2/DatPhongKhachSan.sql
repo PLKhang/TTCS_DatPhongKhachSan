@@ -65,7 +65,6 @@ create table TAIKHOAN(
 	USERNAME char(30),
 	USERPW varchar(50) not null,
 	CCCD char(20) not null unique,
-	SODUTK money not null check (SODUTK >= 0),
 	primary key (USERNAME),
 	foreign key(CCCD) references KHACHHANG(CCCD) on update cascade
 )
@@ -83,13 +82,14 @@ create table PHIEUDAT(
 )
 go
 
-create table CT_PHIEUDAT(
-	MAPD char(10) not null,
-	MAHP char(10) not null,
-	SOLUONG tinyint default 1 check (SOLUONG >= 1),
-	primary key(MAPD, MAHP),
-	foreign key(MAPD) references PHIEUDAT(MAPD) on update cascade,
-	foreign key(MAHP) references HANGPHONG(MAHP) on update cascade
+CREATE TABLE CT_PHIEUDAT (
+    IDPD INT IDENTITY(1,1) PRIMARY KEY,
+    MAPD CHAR(10) NOT NULL,
+    MAHP CHAR(10) NOT NULL,
+    SOLUONG TINYINT DEFAULT 1 CHECK (SOLUONG >= 1),
+    CONSTRAINT UQ_MAPD_MAHP UNIQUE (MAPD, MAHP),
+    FOREIGN KEY (MAPD) REFERENCES PHIEUDAT(MAPD) ON UPDATE CASCADE,
+    FOREIGN KEY (MAHP) REFERENCES HANGPHONG(MAHP) ON UPDATE CASCADE
 )
 go
 

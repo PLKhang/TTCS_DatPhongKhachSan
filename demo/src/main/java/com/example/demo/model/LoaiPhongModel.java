@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 public class LoaiPhongModel {
     private String MaLP;
     private String TenLP;
+    private String MoTa;
 }

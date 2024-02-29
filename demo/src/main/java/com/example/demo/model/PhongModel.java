@@ -9,4 +9,7 @@ import lombok.NoArgsConstructor;
 public class PhongModel {
     private String Maphong;
     private String MaHP;
+    private int SoPhong;
+    private int SoTang;
+    private String TrangThai;
 }

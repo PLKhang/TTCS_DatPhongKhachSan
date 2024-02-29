@@ -10,10 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class HangPhongModel {
     private String MaHP;
+    private String TenHP;
     @NotNull
-    private Long Gia;
+    private Long DonGia;
     @NotNull
     private String MaKP;
     @NotNull
     private String MaLP;
+    private int SoNguoi;
 }

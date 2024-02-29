@@ -10,4 +10,5 @@ public class ChiTietPhieuDatModel {
     private String IdPD;
     private String MaPD;
     private String MaHP;
+    private int SoLuong;
 }

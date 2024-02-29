@@ -14,7 +14,9 @@ import java.util.Set;
 public class HangPhong implements Serializable {
     @Id
     private String MaHP;
-    private Long Gia;
+    private String TenHP;
+    private Long DonGia;
+    private int SoNguoi;
     @OneToMany(mappedBy = "hangphong",cascade = CascadeType.ALL)
     private Set<Phong> phongs;
     @ManyToOne

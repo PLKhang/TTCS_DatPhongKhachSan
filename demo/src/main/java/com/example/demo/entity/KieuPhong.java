@@ -14,6 +14,10 @@ public class KieuPhong implements Serializable {
     @Id
     private String MaKP;
     private String TenKP;
+    private boolean Wifi;
+    private float DienTich;
+    private String ViewPhong;
+    private String Mota;
     @OneToMany(mappedBy = "kieuphong", cascade = CascadeType.ALL)
     private Set<HangPhong> hangphongs;
 

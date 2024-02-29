@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class ChiTietPhieuDat implements Serializable {
     @Id
     private Long IdPD;
+    private int SoLuong;
     @ManyToOne
     @JoinColumn(name = "MaPD")
     private PhieuDat phieudat;

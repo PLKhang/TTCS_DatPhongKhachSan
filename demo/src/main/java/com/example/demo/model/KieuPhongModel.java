@@ -9,4 +9,8 @@ import lombok.NoArgsConstructor;
 public class KieuPhongModel {
     private String MaKP;
     private String TenKP;
+    private boolean Wifi;
+    private float DienTich;
+    private String ViewPhong;
+    private String Mota;
 }

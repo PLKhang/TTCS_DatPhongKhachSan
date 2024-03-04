@@ -17,7 +17,9 @@ public class KieuPhong implements Serializable {
     private boolean Wifi;
     private float DienTich;
     private String ViewPhong;
-    private String Mota;
+    private String MoTa;
+    @Lob
+    private byte[] image;
     @OneToMany(mappedBy = "kieuphong", cascade = CascadeType.ALL)
     private Set<HangPhong> hangphongs;
 

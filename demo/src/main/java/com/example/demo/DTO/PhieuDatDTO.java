@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.DTO;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhieuDatModel {
+public class PhieuDatDTO {
     private String MaPD;
     @Temporal(TemporalType.DATE)
     private Date NgayDat;
@@ -18,4 +18,5 @@ public class PhieuDatModel {
     private Date NgayBD;
     private int SoNgay;
     private String TrangThai;
+
 }

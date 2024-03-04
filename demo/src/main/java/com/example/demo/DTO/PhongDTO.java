@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhongModel {
+public class PhongDTO {
     private String Maphong;
     private String MaHP;
     private int SoPhong;

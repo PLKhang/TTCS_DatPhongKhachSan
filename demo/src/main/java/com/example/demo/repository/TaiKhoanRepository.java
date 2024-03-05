@@ -16,7 +16,7 @@ public class TaiKhoanRepository {
     public TaiKhoan findUserAccount(String Username){
         try {
             String sql="Select e from " + TaiKhoan.class.getName()+" e " //
-            +" Where e.UserName=:UserName";
+            +" Where e.Username=:Username";
             Query query=entityManager.createQuery(sql, TaiKhoan.class);
             query.setParameter("Username",Username);
             return (TaiKhoan) query.getSingleResult();

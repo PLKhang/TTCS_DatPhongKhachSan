@@ -15,8 +15,10 @@ public class RoleRepository {
     @Autowired
     private EntityManager entityManager;
     public List<String> getRoleNames(String Username){
-        String sql="Select ur.Role.RoleName from" + UserRole.class.getName()+" ur " //
-        +" where ur.TaiKhoan.UserName=:Username";
+//        String sql="Select ur.Role.RoleName from " + UserRole.class.getName()+" ur " //
+//        +" where ur.TaiKhoan.UserName=:Username";
+        String sql = "SELECT ur.role.RoleName FROM " + UserRole.class.getName() + " ur " +
+                "WHERE ur.taiKhoan.Username = :Username";
         Query query=this.entityManager.createQuery(sql, String.class);
         query.setParameter("Username",Username);
         return query.getResultList();

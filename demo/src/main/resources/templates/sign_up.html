@@ -46,6 +46,21 @@
                                         <li><a href="/rooms">rooms</a></li>
                                         <li><a href="/about">About</a></li>
                                         <li><a href="/contact">Contact</a></li>
+                                        <div class="nav-links" style="text-align: center;">
+                                            <li>
+                                                <a href="#" class="desktop-item" >Menu</a>
+                                                <ul class="drop-menu" style="left: 2%;font-size: 6px;color: #f2f2f2;">
+
+                                                    <li><a th:if="${isLoggedIn == false}" th:href="@{/signin}">Hồ Sơ</a>
+                                                    <a th:if="${isLoggedIn == true}" th:href="@{/#}">Hồ Sơ</a></li>
+                                                    <li><a th:if="${isLoggedIn == false}" th:href="@{/signin}">Phiếu Đặt</a>
+                                                    <a th:if="${isLoggedIn == true}" th:href="@{/#}">Phiếu Đặt</a></li>
+                                                    <li><a th:if="${isLoggedIn == false}" th:href="@{/signup}">Sign Up</a>
+                                                    <a th:if="${isLoggedIn == true}" th:href="@{/logout}">Log out</a></li>
+                                                </ul>
+
+                                            </li>
+                                        </div>
                                     </ul>
                                 </nav>
                             </div>
@@ -58,12 +73,12 @@
                             </div>
                         </div>
                         <div class="col-xl-5 col-lg-4 d-none d-lg-block">
-                            <div class="sign_up" style="text-align: right;">
-                                
-                                <div class="sign_btn d-none d-lg-block">
-                                    <a href="/signup">Sign Up</a>
-                                </div>
-                            </div>
+<!--                            <div class="sign_up" style="text-align: right;">-->
+<!--                                -->
+<!--                                <div class="sign_btn d-none d-lg-block">-->
+<!--                                    <a href="/signup">Sign Up</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>
@@ -83,35 +98,45 @@
         <div class="container" style="padding: 20px;background: white;max-height: 900px;margin: auto;">
             <div class="row">
                 <div class="col-xl-12 col-lg-12" style="">
-                    <form action="" style="display: flex;">
+                    <form method="post" th:action="@{/signup}" th:object="${taiKhoanKhachHangDTO}" style="display: flex;">
                         <div style="width: 50%;display: block;padding: 45px;">
                             <h3 style="margin: 0;text-transform: uppercase;font-size: 25px;text-align: center;margin-bottom: 28px;">Registration Form</h3>
                             <div class="form-group" style="margin-bottom: 0px;">
-                                <input type="text" placeholder="Ho" class="form-control">
-                                <input type="text" placeholder="Ten" class="form-control">
+                                <input type="text" placeholder="Ho" class="form-control" name="Ho" th:value="*{Ho} " th:errorClass="is-invalid" >
+
+                                <input type="text" placeholder="Ten" class="form-control" name="Ten" th:value="*{Ten}" th:errorClass="is-invalid" >
+
+                            </div>
+                            <div class="form-wrapper" style="margin-bottom: 0px;display: flex">
+                                <div th:if="${#fields.hasErrors('Ho')}" th:errors="*{Ho}" class="invalid-feedback form-control" style="border-bottom: none; height: 15px"> </div>
+                                <div th:if="${#fields.hasErrors('Ten')}" th:errors="*{Ten}" class="invalid-feedback form-control"style="border-bottom: none;height: 15px" > </div>
                             </div>
                             <div class="form-wrapper">
-                                <input type="text" placeholder="Ten dang nhap" class="form-control">
+                                <input type="text" placeholder="Ten dang nhap" class="form-control" name="Username" th:value="*{Username}" th:errorClass="is-invalid">
                                 <i class="zmdi zmdi-account">*</i>
+                                <div th:if="${#fields.hasErrors('Username')}" th:errors="*{Username}" class="invalid-feedback"> </div>
                             </div>
                             <div class="form-wrapper">
-                                <input type="text" placeholder="Email" class="form-control">
+                                <input type="text" placeholder="Email" class="form-control" name="Email" th:value="*{Email}" th:errorClass="is-invalid">
                                 <i class="zmdi zmdi-email">*</i>
+                                <div th:if="${#fields.hasErrors('Email')}" th:errors="*{Email}" class="invalid-feedback"> </div>
                             </div>
                             <div class="form-wrapper">
-                                <select name="gender" id="gender" class="form-control">
+                                <select  id="gender" class="form-control" name= "Phai" th:value="*{Phai}" th:errorClass="is-invalid">
                                     <option value="" disabled selected>Gioi tinh</option>
-                                    <option value="male">Nam</option>
-                                    <option value="femal">Nu</option>
-                                    <option value="other">Khac</option>
+                                    <option value="True">Nam</option>
+                                    <option value="False">Nu</option>
+<!--                                    <option value="other">Khac</option>-->
                                 </select>
                                 <i class="zmdi zmdi-caret-down" style="font-size: 17px">*</i>
+                                <div th:if="${#fields.hasErrors('Phai')}" th:errors="*{Phai}" class="invalid-feedback"> </div>
                             </div>
                             <div class="form-wrapper">
-                                <input type="password" placeholder="Mat khau" class="form-control">
+                                <input type="password" placeholder="Mat khau" class="form-control" name="EncrytedPassword" th:value="*{EncrytedPassword}" th:errorClass="is-invalid">
                                 <i class="zmdi zmdi-lock">*</i>
+                                <div th:if="${#fields.hasErrors('EncrytedPassword')}" th:errors="*{EncrytedPassword}" class="invalid-feedback"> </div>
                             </div>
-                            <button>Register
+                            <button type="submit">Register
                                <i class="zmdi zmdi-arrow-right"></i>
                             </button>
                             <a href="/signin" id="sign_in_link" >Đã có tài khoản</a>
@@ -119,24 +144,26 @@
                         <div style="width: 50%;display: block;padding: 40px;">
 
                             <div class="form-wrapper" style="padding-top: 58px;">
-                                <input type="text" placeholder="CCCD" class="form-control">
+                                <input type="text" placeholder="CCCD" class="form-control" name="CCCD" th:value="*{CCCD}" th:errorClass="is-invalid">
                                 <i class="zmdi zmdi-account">*</i>
+                                <div th:if="${#fields.hasErrors('CCCD')}" th:errors="*{CCCD}" class="invalid-feedback"> </div>
                             </div>
                             <div class="form-wrapper">
-                                <input type="text" placeholder="Dia Chi" class="form-control">
+                                <input type="text" placeholder="Dia Chi" class="form-control" name="DiaChi" th:value="*{DiaChi}" >
                                 <i class="zmdi zmdi-account">optional</i>
                             </div>
                             <div class="form-wrapper">
-                                <input type="date" placeholder="Ngay sinh" class="form-control">
+                                <input type="date" placeholder="Ngay sinh" class="form-control" name="NgaySinh" th:value="*{NgaySinh}" th:errorClass="is-invalid">
                                 <i class="zmdi zmdi-account">*</i>
+                                <div th:if="${#fields.hasErrors('NgaySinh')}" th:errors="*{NgaySinh}" class="invalid-feedback"> </div>
                             </div>
                             <div class="form-wrapper">
-                                <input type="text" placeholder="Ma so thue " class="form-control">
+                                <input type="text" placeholder="Ma so thue " class="form-control" name="MaSoThue" th:value="*{MaSoThue}" >
                                 <i class="zmdi zmdi-account">optional</i>
                             </div>
                         </div>
-                        
-                    
+
+
                     </form>
             </div>
         </div>

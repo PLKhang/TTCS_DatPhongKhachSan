@@ -21,8 +21,19 @@ public class TaiKhoan implements Serializable {
     private String Username;
     @Column(name = "Encryted_Password",length = 128,nullable = false)
     private String EncrytedPassword;
-    @Column(name = "CCCD",length = 15,nullable = false)
-    private String CCCD;
+    @OneToOne
+    @JoinColumn(name = "CCCD")
+    private KhachHang khachHang;
     @Column(name = "Enabled",length = 1,nullable = false)
     private boolean Enabled;
+
+    public TaiKhoan(String username, String encrytedPassword, String cccd, Boolean enabled) {
+        this.Username = username;
+        this.EncrytedPassword = encrytedPassword;
+        this.khachHang = new KhachHang(); // Khởi tạo một đối tượng KhachHang trống nếu cần thiết
+        this.khachHang.setCCCD(cccd);
+        this.Enabled = enabled;
+    }
+
+
 }

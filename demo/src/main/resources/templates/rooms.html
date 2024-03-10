@@ -46,6 +46,20 @@
                                         <li><a class="active" href="rooms">rooms</a></li>
                                         <li><a href="/about">About</a></li>
                                         <li><a href="/contact">Contact</a></li>
+                                        <div class="nav-links" style="text-align: center;">
+                                            <li>
+                                                <a href="#" class="desktop-item" >Menu</a>
+                                                <ul class="drop-menu" style="left: 2%;font-size: 6px;color: #f2f2f2;">
+
+                                                    <li><a th:if="${isLoggedIn == false}" th:href="@{/signin}">Hồ Sơ</a>
+                                                        <a th:if="${isLoggedIn == true}" th:href="@{/#}">Hồ Sơ</a></li>
+                                                    <li><a th:if="${isLoggedIn == false}" th:href="@{/signin}">Phiếu Đặt</a>
+                                                        <a th:if="${isLoggedIn == true}" th:href="@{/#}">Phiếu Đặt</a></li>
+                                                    <li><a th:if="${isLoggedIn == false}" th:href="@{/signup}">Sign Up</a>
+                                                        <a th:if="${isLoggedIn == true}" th:href="@{/logout}">Log out</a></li>
+                                                </ul>
+                                            </li>
+                                        </div>
                                     </ul>
                                 </nav>
                             </div>
@@ -58,12 +72,12 @@
                             </div>
                         </div>
                         <div class="col-xl-5 col-lg-4 d-none d-lg-block">
-                            <div class="sign_up" style="text-align: right;">
-                                
-                                <div class="sign_btn d-none d-lg-block">
-                                    <a href="/signup">Sign Up</a>
-                                </div>
-                            </div>
+<!--                            <div class="sign_up" style="text-align: right;">-->
+<!--                                -->
+<!--                                <div class="sign_btn d-none d-lg-block">-->
+<!--                                    <a href="/signup">Sign Up</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>
@@ -84,6 +98,7 @@
         <p>Name: <span th:text="${kieuphong.tenKP}"></span></p>
         <img th:src="@{'data:image/png;base64,' + ${kieuphong.base64Image} }" alt="Rooms Image" />
     </div>
+    <span th:text="${timetest}"></span>
 
     <!-- offers_area_start -->
     <div class="offers_area padding_top ">

@@ -15,13 +15,21 @@ public class TaiKhoanRepository {
     private EntityManager entityManager;
     public TaiKhoan findUserAccount(String Username){
         try {
-            String sql="Select e from " + TaiKhoan.class.getName()+" e " //
-            +" Where e.Username=:Username";
+            String sql = "SELECT e.Username, e.EncrytedPassword, e.khachHang.CCCD, e.Enabled FROM " + TaiKhoan.class.getName() + " e WHERE e.Username = :Username";
+
             Query query=entityManager.createQuery(sql, TaiKhoan.class);
             query.setParameter("Username",Username);
             return (TaiKhoan) query.getSingleResult();
         }catch (NoResultException e){
             return null;
         }
+    }
+    public boolean existsByUsername(String username) {
+        Query query = entityManager.createQuery("SELECT 1 FROM TaiKhoan t WHERE t.Username = :username");
+        query.setParameter("username", username);
+        return query.getResultList().size() > 0;
+    }
+    public void save(TaiKhoan taiKhoan){
+        entityManager.persist(taiKhoan);
     }
 }

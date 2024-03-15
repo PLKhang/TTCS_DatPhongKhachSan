@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.DTO.TaiKhoanKhachHangDTO;
+import com.example.demo.entity.KhachHang;
 import com.example.demo.entity.KieuPhong;
 import com.example.demo.DTO.KieuPhongDTO;
+import com.example.demo.entity.TaiKhoan;
+import com.example.demo.repository.KhachHangRepository;
+import com.example.demo.repository.TaiKhoanRepository;
 import com.example.demo.service.IKieuPhongService;
-import com.example.demo.service.IUserDetailsService;
 import com.example.demo.service.impl.UserDetailsServiceImpl;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -15,8 +18,8 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,10 +27,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +38,10 @@ import static com.example.demo.utils.EncrytedPasswordUtils.encrytePassword;
 public class PhieuDatController {
     @Autowired
     IKieuPhongService kieuPhongService;
+    @Autowired
+    private KhachHangRepository khachhangRepository;
+    @Autowired
+    private TaiKhoanRepository taiKhoanRepository;
 
     private final UserDetailsServiceImpl userDetailsService;
     @Autowired
@@ -53,6 +58,7 @@ public class PhieuDatController {
         System.out.println(authentication.isAuthenticated());
         return authentication != null  && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
+
     @RequestMapping("rooms")
     public String rooms(Model model){
         List<KieuPhong> kieuphongs=kieuPhongService.findAll();
@@ -97,9 +103,7 @@ public class PhieuDatController {
     public String returnHome(@Valid TaiKhoanKhachHangDTO taiKhoanKhachHangDTO, BindingResult bindingResult){
         taiKhoanKhachHangDTO.setEncrytedPassword(encrytePassword(taiKhoanKhachHangDTO.getEncrytedPassword()));
         System.out.println(taiKhoanKhachHangDTO.toString());
-        System.out.println("toi day ne 1");
         if (userDetailsService.userExists(taiKhoanKhachHangDTO.getUsername())) {
-            System.out.println("co loi ");
             bindingResult.addError(new FieldError("taiKhoanKhachHangDTO","Username","Username already in use"));
         }
         if (bindingResult.hasErrors()){
@@ -118,5 +122,24 @@ public class PhieuDatController {
     @RequestMapping("about")
     public String about(){
         return "about";
+    }
+    @RequestMapping("booking")
+    public  String booking(){return "booking";}
+    @RequestMapping("profile")
+    public String profile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            TaiKhoan taiKhoan = taiKhoanRepository.findUserAccount(authentication.getName());
+            KhachHang khachHang = taiKhoan.getKhachHang();
+            khachHang=khachhangRepository.findByCCCD(khachHang.getCCCD());
+            model.addAttribute("khachhang",khachHang);
+        }
+        return "profile";
+    }
+    @PostMapping("/profile")
+    public String updateProfile(@ModelAttribute("khachhang") KhachHang khachHang) {
+        System.out.println(khachHang.getHo());
+        khachhangRepository.merge(khachHang);
+        return "redirect:/profile";
     }
 }

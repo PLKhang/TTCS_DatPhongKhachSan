@@ -43,8 +43,8 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="/home">home</a></li>
-                                        <li><a class="active" href="rooms">rooms</a></li>
-                                        <li><a href="/about">About</a></li>
+                                        <li><a href="/rooms">rooms</a></li>
+                                        <li><a class="active" href="/about">About</a></li>
                                         <li><a href="/contact">Contact</a></li>
                                         <div class="nav-links" style="text-align: center;">
                                             <li>
@@ -72,10 +72,12 @@
                             </div>
                         </div>
                         <div class="col-xl-5 col-lg-4 d-none d-lg-block">
+
 <!--                            <div class="sign_up" style="text-align: right;">-->
 <!--                                -->
 <!--                                <div class="sign_btn d-none d-lg-block">-->
-<!--                                    <a href="/signup">Sign Up</a>-->
+<!--                                    <a th:if="${isLoggedIn == false}" th:href="@{/signup}">Sign Up</a>-->
+<!--                                    <a th:if="${isLoggedIn == true}" th:href="@{/logout}">Đăng xuất</a>-->
 <!--                                </div>-->
 <!--                            </div>-->
                         </div>
@@ -90,142 +92,171 @@
     <!-- header-end -->
 
     <!-- bradcam_area_start -->
-    <div class="bradcam_area breadcam_bg_1">
-        <h3>Laxaries Rooms</h3>
+    <div class="bradcam_area breadcam_bg_1" style="padding: 145px 0 20px">
+        <h3>HỒ SƠ</h3>
     </div>
     <!-- bradcam_area_end -->
-    <div th:each="kieuphong :${listkieuphong}">
-        <p>Name: <span th:text="${kieuphong.tenKP}"></span></p>
-        <img th:src="@{'data:image/png;base64,' + ${kieuphong.base64Image} }" alt="Rooms Image" />
-    </div>
-    <span th:text="${timetest}"></span>
+    <div class="padding_top " style="background-color: white">
+        <div class="container" style="padding: 20px;background: white;max-height: 900px;margin: auto;">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12" style="">
+<!--                    <form name="signin"  method="post" style="display: flex;text-align:center;justify-content: center;align-items: center;">-->
+<!--                        <div style="display: block;padding: 45px;width: 80%;justify-content: center;">-->
+<!--                            <h3 style="margin: 0;text-transform: uppercase;font-size: 25px;text-align: center;margin-bottom: 28px;">THAY ĐỔI THÔNG TIN CÁ NHÂN</h3>-->
+<!--                            <div class="form-wrapper">-->
+<!--                                <label  class="form-label">Full Name</label>-->
+<!--                                <input name="username" type="text" placeholder="Ten dang nhap" class="form-control">-->
+<!--                                <i class="zmdi zmdi-account">*</i>-->
+<!--                            </div>-->
 
-    <!-- offers_area_start -->
-    <div class="offers_area padding_top ">
+<!--                            <div class="form-wrapper">-->
+<!--                                <input name="password" type="password" placeholder="Mat khau" class="form-control">-->
+<!--                                <i class="zmdi zmdi-lock">*</i>-->
+<!--                            </div>-->
+<!--                            <button name="submit">Login-->
+<!--                                <i class="zmdi zmdi-arrow-right"></i>-->
+<!--                            </button>-->
+<!--                            <a href="/signup" id="sign_in_link" >Chưa có tài khoản</a>-->
+<!--                        </div>-->
+
+
+
+<!--                    </form>-->
+                    <form action="/profile" method="post" th:object="${khachhang}" >
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Căn Cước Công Dân</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="CCCD" th:value="*{CCCD}" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Họ</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="Ho" th:value="*{Ho}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Tên</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="Ten" th:value="*{Ten}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Ngày Sinh</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="NgaySinh" th:value="*{NgaySinh}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Giới Tính</label>
+                            <div class="col-sm-10">
+                                <select  id="gender" class="form-control" name= "Phai" th:value="*{Phai}" >
+                                    <option value="" disabled selected>Gioi tinh</option>
+                                    <option value="True">Nam</option>
+                                    <option value="False">Nu</option>
+                                    <!--                                    <option value="other">Khac</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Địa Chỉ</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="DiaChi" th:value="*{DiaChi}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label  class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" name="Email" th:value="*{Email}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Mã Số Thuế</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="MaSoThue" th:value="*{MaSoThue}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label  class="col-sm-2 col-form-label">Phone Number</label>
+                            <div class="col-sm-10">
+                                <input type="tel" class="form-control" name="SDT" th:value="*{SDT}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-10 offset-sm-2">
+                                <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about_area_start -->
+    <div class="about_area">
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
-                    <div class="section_title text-center mb-100">
-                        <span>Our Offers</span>
-                        <h3>Ongoing Offers</h3>
+                <div class="col-xl-5 col-lg-5">
+                    <div class="about_info">
+                        <div class="section_title mb-20px">
+                            <span>About Us</span>
+                            <h3>A Luxuries Hotel <br>
+                                    with Nature</h3>
+                        </div>
+                        <p>Suscipit libero pretium nullam potenti. Interdum, blandit phasellus consectetuer dolor ornare dapibus enim ut tincidunt rhoncus tellus sollicitudin pede nam maecenas, dolor sem. Neque sollicitudin enim. Dapibus lorem feugiat facilisi faucibus et. Rhoncus.</p>
+                        <a href="#" class="line-button">Learn More</a>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/1.png" alt="">
+                <div class="col-xl-7 col-lg-7">
+                    <div class="about_thumb d-flex">
+                        <div class="img_1">
+                            <img src="img/about/about_1.png" alt="">
                         </div>
-                        <h3>Up to 35% savings on Club <br> 
-                                rooms and Suites</h3>
-                        <ul>
-                            <li>Luxaries condition</li>
-                            <li>3 Adults & 2 Children size</li>
-                            <li>Sea view side</li>
-                        </ul>
-                        <a href="#test-form" class="book_now">book now</a>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/2.png" alt="">
+                        <div class="img_2">
+                            <img src="img/about/about_2.png" alt="">
                         </div>
-                        <h3>Up to 35% savings on Club <br> 
-                                rooms and Suites</h3>
-                        <ul>
-                            <li>Luxaries condition</li>
-                            <li>3 Adults & 2 Children size</li>
-                            <li>Sea view side</li>
-                        </ul>
-                        <a href="#test-form" class="book_now">book now</a>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-4">
-                    <div class="single_offers">
-                        <div class="about_thumb">
-                            <img src="img/offers/3.png" alt="">
-                        </div>
-                        <h3>Up to 35% savings on Club <br> 
-                                rooms and Suites</h3>
-                        <ul>
-                            <li>Luxaries condition</li>
-                            <li>3 Adults & 2 Children size</li>
-                            <li>Sea view side</li>
-                        </ul>
-                        <a href="#test-form" class="book_now">book now</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- offers_area_end -->
+    <!-- about_area_end -->
 
-    <!-- features_room_startt -->
-    <div class="features_room">
+    <!-- about_info_area_start -->
+    <div class="about_info_area">
+        <div class="about_active owl-carousel">
+            <div class="single_slider about_bg_1"></div>
+            <div class="single_slider about_bg_1"></div>
+            <div class="single_slider about_bg_1"></div>
+            <div class="single_slider about_bg_1"></div>
+        </div>
+    </div>
+    <!-- about_info_area_start -->
+
+    <!-- about_main_info_start -->
+    <div class="about_main_info">
         <div class="container">
             <div class="row">
-                <div class="col-xl-12">
-                    <div class="section_title text-center mb-100">
-                        <span>Featured Rooms</span>
-                        <h3>Choose a Better Room</h3>
+                <div class="col-xl-6 col-md-6">
+                    <div class="single_about_info">
+                        <h3>We Serve Fresh and <br>
+                            Delicious Food</h3>
+                            <p>Suscipit libero pretium nullam potenti. Interdum, blandit <br> phasellus consectetuer dolor ornare dapibus enim ut tincidunt <br> rhoncus tellus sollicitudin pede nam maecenas, dolor sem. <br> Neque sollicitudin enim. Dapibus lorem feugiat facilisi <br> faucibus et. Rhoncus.
+                            </p>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="rooms_here">
-            <div class="single_rooms">
-                <div class="room_thumb">
-                    <img src="img/rooms/1.png" alt="">
-                    <div class="room_heading d-flex justify-content-between align-items-center">
-                        <div class="room_heading_inner">
-                            <span>From $250/night</span>
-                            <h3>Superior Room</h3>
-                        </div>
-                        <a href="#" class="line-button">book now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="single_rooms">
-                <div class="room_thumb">
-                    <img src="img/rooms/2.png" alt="">
-                    <div class="room_heading d-flex justify-content-between align-items-center">
-                        <div class="room_heading_inner">
-                            <span>From $250/night</span>
-                            <h3>Deluxe Room</h3>
-                        </div>
-                        <a href="#" class="line-button">book now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="single_rooms">
-                <div class="room_thumb">
-                    <img src="img/rooms/3.png" alt="">
-                    <div class="room_heading d-flex justify-content-between align-items-center">
-                        <div class="room_heading_inner">
-                            <span>From $250/night</span>
-                            <h3>Signature Room</h3>
-                        </div>
-                        <a href="#" class="line-button">book now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="single_rooms">
-                <div class="room_thumb">
-                    <img src="img/rooms/4.png" alt="">
-                    <div class="room_heading d-flex justify-content-between align-items-center">
-                        <div class="room_heading_inner">
-                            <span>From $250/night</span>
-                            <h3>Couple Room</h3>
-                        </div>
-                        <a href="#" class="line-button">book now</a>
+                <div class="col-xl-6 col-md-6">
+                    <div class="single_about_info">
+                        <h3>We Serve Fresh and <br>
+                            Delicious Food</h3>
+                            <p>Suscipit libero pretium nullam potenti. Interdum, blandit <br> phasellus consectetuer dolor ornare dapibus enim ut tincidunt <br> rhoncus tellus sollicitudin pede nam maecenas, dolor sem. <br> Neque sollicitudin enim. Dapibus lorem feugiat facilisi <br> faucibus et. Rhoncus.
+                            </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- features_room_end -->
+    <!-- about_main_info_end -->
 
     <!-- forQuery_start -->
     <div class="forQuery">
@@ -385,53 +416,54 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             </div>
         </div>
     </footer>
+    <!-- footer_end -->
 
     <!-- form itself end-->
-    <form id="test-form" class="white-popup-block mfp-hide">
-        <div class="popup_box ">
-            <div class="popup_inner">
-                <h3>Check Availability</h3>
-                <form action="#">
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <input id="datepicker" placeholder="Check in date">
-                        </div>
-                        <div class="col-xl-6">
-                            <input id="datepicker2" placeholder="Check out date">
-                        </div>
-                        <div class="col-xl-6">
-                            <select class="form-select wide" id="adult" >
-                                <option data-display="Adult">1</option>
-                                <option value="1">2</option>
-                                <option value="2">3</option>
-                                <option value="3">4</option>
-                            </select>
-                        </div>
-                        <div class="col-xl-6">
-                            <select class="form-select wide" id="children" >
-                                <option data-display="Children">1</option>
-                                <option value="1">2</option>
-                                <option value="2">3</option>
-                                <option value="3">4</option>
-                            </select>
-                        </div>
-                        <div class="col-xl-12">
-                            <select class="form-select wide" id="roomtype" >
-                                <option data-display="Room type">Room type</option>
-                                <option value="1">Laxaries Rooms</option>
-                                <option value="2">Deluxe Room</option>
-                                <option value="3">Signature Room</option>
-                                <option value="4">Couple Room</option>
-                            </select>
-                        </div>
-                        <div class="col-xl-12">
-                            <button type="submit" class="boxed-btn3">Check Availability</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </form>
+<!--    <form id="test-form" class="white-popup-block mfp-hide">-->
+<!--        <div class="popup_box ">-->
+<!--                <div class="popup_inner">-->
+<!--                    <h3>Check Availability</h3>-->
+<!--                    <form action="#">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-xl-6">-->
+<!--                                <input id="datepicker" placeholder="Check in date">-->
+<!--                            </div>-->
+<!--                            <div class="col-xl-6">-->
+<!--                                <input id="datepicker2" placeholder="Check out date">-->
+<!--                            </div>-->
+<!--                            <div class="col-xl-6">-->
+<!--                                <select class="form-select wide" id="default-select" class="">-->
+<!--                                    <option data-display="Adult">1</option>-->
+<!--                                    <option value="1">2</option>-->
+<!--                                    <option value="2">3</option>-->
+<!--                                    <option value="3">4</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <div class="col-xl-6">-->
+<!--                                <select class="form-select wide" id="default-select" class="">-->
+<!--                                    <option data-display="Children">1</option>-->
+<!--                                    <option value="1">2</option>-->
+<!--                                    <option value="2">3</option>-->
+<!--                                    <option value="3">4</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <div class="col-xl-12">-->
+<!--                                <select class="form-select wide" id="default-select" class="">-->
+<!--                                    <option data-display="Room type">Room type</option>-->
+<!--                                    <option value="1">Laxaries Rooms</option>-->
+<!--                                    <option value="2">Deluxe Room</option>-->
+<!--                                    <option value="3">Signature Room</option>-->
+<!--                                    <option value="4">Couple Room</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <div class="col-xl-12">-->
+<!--                                <button type="submit" class="boxed-btn3">Check Availability</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--    </form>-->
 <!-- form itself end -->
 
 
@@ -477,7 +509,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
         });
     </script>
-
 
 
 </body>

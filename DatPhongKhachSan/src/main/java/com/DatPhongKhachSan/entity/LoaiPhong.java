@@ -1,38 +1,22 @@
 package com.DatPhongKhachSan.entity;
-//import jakarta.persistence.Entity;
-public class LoaiPhong{
 
-    private String maLP;
-    private String tenLP;
-    private String moTa;
-    
-    public String getMaLP() {
-        return maLP;
-    }
+import jakarta.persistence.*;
+import lombok.*;
 
-    public void setMaLP(String maLP) {
-        this.maLP = maLP;
-    }
+import java.io.Serializable;
+import java.util.Set;
 
-    public String getTenLP() {
-        return tenLP;
-    }
-
-    public void setTenLP(String tenLP) {
-        this.tenLP = tenLP;
-    }
-    
-    public String getMoTa() {
-        return moTa;
-    }
-
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + this.maLP + "," + this.tenLP + "," + this.moTa + "]";
-    }
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "LoaiPhong")
+public class LoaiPhong implements Serializable {
+    @Id
+    private String MaLP;
+    private String TenLP;
+    private String MoTa;
+    @OneToMany(mappedBy = "loaiphong", cascade = CascadeType.ALL)
+    private Set<HangPhong> hangphongs;
 
 }

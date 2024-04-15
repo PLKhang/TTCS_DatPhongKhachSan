@@ -1,67 +1,36 @@
 package com.DatPhongKhachSan.entity;
-//import jakarta.persistence.Entity;
 
-public class KieuPhong{
+import jakarta.persistence.*;
+import lombok.*;
 
-    private String maKP;
-    private String tenKP;
-    private boolean wifi;
-    private float dienTich;
-    private String viewP;
-    private String moTa;
-    
-    public String getMaKP() {
-        return maKP;
-    }
+import java.io.Serializable;
+import java.util.Base64;
+import java.util.Set;
 
-    public void setMaKP(String maKP) {
-        this.maKP = maKP;
-    }
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "KieuPhong")
+public class KieuPhong implements Serializable {
+    @Id
+    private String MaKP;
+    private String TenKP;
+    private boolean Wifi;
+    private float DienTich;
+    private String ViewPhong;
+    private String MoTa;
+    @Lob
+    private byte[] image;
+    @Transient
+    private String base64Image;
+    @OneToMany(mappedBy = "kieuphong", cascade = CascadeType.ALL)
+    private Set<HangPhong> hangphongs;
 
-    public String getTenKP() {
-        return tenKP;
+    @PostLoad
+    public void generateBase64Image() {
+        if (this.image != null) {
+            this.base64Image = Base64.getEncoder().encodeToString(this.image);
+        }
     }
-
-    public void setTenKP(String tenKP) {
-        this.tenKP = tenKP;
-    }
-
-    public boolean haveWifi() {
-        return wifi;
-    }
-
-    public void setWifi(boolean wifi) {
-        this.wifi = wifi;
-    }
-    
-    public float dienTich() {
-        return dienTich;
-    }
-
-    public void setDienTich(float dienTich) {
-        this.dienTich = dienTich;
-    }
-
-    public String getViewP() {
-        return viewP;
-    }
-
-    public void setViewP(String viewP) {
-        this.viewP = viewP;
-    }
-    
-    public String getMoTa() {
-        return moTa;
-    }
-
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + this.maKP + "," + this.tenKP + "," + this.wifi + "," 
-        		+ this.dienTich + "," + this.viewP + "," + this.moTa + "]";
-    }
-
 }

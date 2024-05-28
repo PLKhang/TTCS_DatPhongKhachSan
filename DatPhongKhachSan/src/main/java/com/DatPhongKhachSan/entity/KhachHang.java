@@ -31,4 +31,8 @@ public class KhachHang implements Serializable {
     private TaiKhoan taiKhoan;
     @OneToMany(mappedBy = "khachHang",cascade = CascadeType.ALL)
     private Set<PhieuDat> phieudats;
+    @Override
+    public int hashCode() {
+        return Objects.hash(CCCD);
+    }
 }
